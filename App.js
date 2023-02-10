@@ -8,6 +8,7 @@ import AppProvider from "./Context/Provider";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
 import HomeScreen from "./Pages/HomeScreen";
+import DebtPage from "./Pages/DebtPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,11 @@ export default function App() {
           <Stack.Screen
             name="HomeScreen"
             component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DebtPage"
+            component={DebtPage}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -38,6 +38,7 @@ export default function LoginPage({ navigation }) {
         placeholder="E-mail"
         onChangeText={setEmail}
         value={email}
+        keyboardType="email-address"
       />
       <TextInput
         secureTextEntry
