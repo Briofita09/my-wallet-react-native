@@ -8,12 +8,14 @@ import {
   View,
   Switch,
   Pressable,
+  ScrollView,
 } from "react-native";
 import { Link, useIsFocused } from "@react-navigation/native";
 
 import axios from "axios";
 
 import AppContext from "../../Context/Context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen({ navigation }) {
   const [transactions, setTransactions] = useState();
@@ -92,51 +94,55 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}> Olá! Aqui estão suas transações </Text>
-      <View style={styles.transactionsView}>
-        {transactions &&
-          transactions.map((transaction) => {
-            return (
-              <View style={styles.transactionView} key={transaction._id}>
-                <Text style={{ color: "#c6c6c6" }}>{transaction.date}</Text>
-                <Text style={styles.transactionText}>
-                  {transaction.description}
-                </Text>
-                {transaction.type === "credit" ? (
-                  <Text style={styles.transactionCredit}>
-                    {transaction.value}
+      <ScrollView style={styles.transactionsView}>
+        <View>
+          {transactions &&
+            transactions.map((transaction) => {
+              return (
+                <View style={styles.transactionView} key={transaction._id}>
+                  <Text style={{ color: "#c6c6c6" }}>{transaction.date}</Text>
+                  <Text style={styles.transactionText}>
+                    {transaction.description}
                   </Text>
-                ) : (
-                  <Text style={styles.transactionDebt}>
-                    {transaction.value}
-                  </Text>
-                )}
-                <Pressable onPress={() => deleteTransaction(transaction._id)}>
-                  <Text
-                    style={{
-                      color: "#c6c6c6",
-                      marginLeft: 10,
-                      marginRight: 10,
-                    }}
-                  >
-                    X
-                  </Text>
-                </Pressable>
-              </View>
-            );
-          })}
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text>Total:</Text>
-          <Text>{total}</Text>
+                  {transaction.type === "credit" ? (
+                    <Text style={styles.transactionCredit}>
+                      {transaction.value}
+                    </Text>
+                  ) : (
+                    <Text style={styles.transactionDebt}>
+                      {transaction.value}
+                    </Text>
+                  )}
+                  <Pressable onPress={() => deleteTransaction(transaction._id)}>
+                    <Text
+                      style={{
+                        color: "#c6c6c6",
+                        marginLeft: 10,
+                        marginRight: 10,
+                      }}
+                    >
+                      X
+                    </Text>
+                  </Pressable>
+                </View>
+              );
+            })}
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text>Total:</Text>
+            <Text>{total}</Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
       <View>
-        <Text style={{ color: "white" }}>Insira aqui sua entrada/saída</Text>
+        <Text style={{ marginLeft: 5, color: "white", fontSize: 20 }}>
+          Insira aqui sua entrada/saída
+        </Text>
         <TextInput
           style={styles.input}
           placeholder="Valor"
@@ -192,6 +198,7 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 50,
     color: "#fff",
+    fontSize: 20,
   },
   input: {
     backgroundColor: "#fff",
@@ -240,6 +247,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
+    minHeight: 20,
   },
   transactionCredit: {
     color: "blue",
