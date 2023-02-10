@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -8,7 +7,6 @@ import AppProvider from "./Context/Provider";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
 import HomeScreen from "./Pages/HomeScreen";
-import DebtPage from "./Pages/DebtPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,13 +30,9 @@ export default function App() {
             component={HomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="DebtPage"
-            component={DebtPage}
-            options={{ headerShown: false }}
-          />
         </Stack.Navigator>
       </NavigationContainer>
+      <StatusBar style="auto" />
     </AppProvider>
   );
 }
